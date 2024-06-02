@@ -1,0 +1,116 @@
+<%- include('partials/header.ejs') %>
+
+    <body>
+        <%- include('partials/navbar.ejs') %>
+            <div class="container">
+
+                <div class="card">
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <h3 class="title">Pedido</h3>
+                        </div>
+                        <div class="col-sm">
+                            <% if (pedidos.length> 0) { %>
+                                <a href="/pedido/novopedido">
+                                    <button class="btn btn-success" id="addButton"> + Incluir pedido</button>
+                                </a>
+                                <% } %>
+
+                        </div>
+                    </div>
+                    <hr>
+                 
+
+                    <div class="card-body" id="bodyPedido">
+                        <% if (pedidos.length> 0) { %>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="10%">Código</th>
+                                        <th width="10%">Data</th>
+                                        <th width="25%">Cliente</th>
+                                        <th width="10%">Mesa</th>
+                                        <th width="10%">Valor total</th>
+                                        <th width="25%">Atendente</th>
+                                        <th width="10%">Status</th>
+                                        <th>Ação</th>
+                                        <!-- <th width="10%">Custo</th>
+                                    <th width="10%">Preço</th>
+                                    <th width="15%">Ações</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (pedidos.length> 0) { %>
+                                        <% pedidos.forEach(pedido=> { %>
+                                            <tr>
+                                                <td>
+                                                    <%= pedido.codigo %>
+                                                </td>
+                                                <td>
+                                                    <%= pedido.data %>
+                                                </td>
+
+                                                <td>
+                                                    <%= pedido.cliente %>
+                                                </td>
+                                                <td>
+                                                    <%= pedido.mesa %>
+                                                </td>
+                                                <td>
+                                                    <%= pedido.valor %>
+                                                </td>
+
+
+                                                <td>
+                                                    <%= pedido.atendente %>
+                                                </td>
+                                                <td>
+                                                    <% if (pedido.status=='P' ) { %>
+                                                        Pendente
+                                                        <% } else if (pedido.status=='C' ) { %>
+                                                            Cancelado
+                                                            <% } else if (pedido.status=='B' ) { %>
+                                                                Baixado
+                                                                <% } %>
+                                                </td>
+                                                <td>
+                                                    <% if (pedido.status=='B' ) { %>
+                                                        <a href="/pedido/relatorio/<%= pedido.codigo %>">Relatório</a>
+                                                        <% } else {%>
+                                                            <a href="/pedido/pagamento/<%= pedido.codigo %>">Pagar</a>
+                                                            <% } %>
+                                                </td>
+                                            </tr>
+                                            <% }) %>
+                                                <% } else { %>
+                                                    <!-- se nao tiver pedidor não mostra o cabeçalho da tabela -->
+                                                    <% } %>
+                                </tbody>
+                            </table>
+
+                            <% } else { %>
+                                <h3>Nenhum pedido registrado</h3>
+                                <h5>Ainda não existem cadastros no seu sistema</h5><br>
+                                <img src="../img/recusado.png" alt="pedido">
+                                <br><br>
+                                <br>
+
+                                <a href="/pedido/novopedido" class="btn btn-success">+ Incluir pedido</a>
+
+                                <% } %>
+
+
+                                    <!-- <h6>Ainda não existem cadastros no seu sistema</h6> -->
+
+                    </div>
+
+                </div>
+
+                <!-- <form action="">
+            <input type="text" name="" id="" placeholder="">
+        </form> -->
+            </div>
+
+    </body>
+    <%- include('partials/footer.ejs') %>

@@ -1,0 +1,93 @@
+<%- include('partials/header.ejs') %>
+
+    <body>
+        <%- include('partials/navbar.ejs') %>
+            <div class="container">
+
+                <div class="card">
+                    <div class="row">
+                        <div class="col-sm">
+
+                            <h3 class="title">Produto</h3>
+
+                        </div>
+                        <div class="col-sm">
+
+                            <a href="/produto/new">
+                                <button class="btn btn-success" id="addButton"> + Incluir produto</button>
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="10%">Código</th>
+                                    <th width="30%">Nome </th>
+                                    <th width="25%">Marca</th>
+                                    <th width="10%">Custo</th>
+                                    <th width="10%">Preço</th>
+                                    <th width="15%">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (produtos.length> 0) { %>
+                                    <% produtos.forEach(produto=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= produto.id_produto %>
+                                            </td>
+
+                                            <td>
+                                                <%= produto.descricao %>
+                                            </td>
+                                            <td>
+                                                <%= produto.marca.nome_marca %>
+                                            </td>
+                                            <td>
+                                                <%= produto.custo_produto %>
+                                            </td>
+                                            <td>
+                                                <%= produto.preco_produto %>
+                                            </td>
+
+                                            <td>
+                                                <div class="row" style="justify-content: center; ">
+                                                    <a href="/produto/edit/<%= produto.id_produto %>">
+                                                        <img src="../img/editar.png" alt="editar" class="edit">
+                                                    </a>
+
+                                                    <form method="POST" action="/produto/delete/">
+                                                        <input type="hidden" name="id"
+                                                            value="<%= produto.id_produto %>">
+                                                        <button style="border: none; background-color: transparent;">
+                                                            <img src="../img/botao-apagar.png" alt="editar"
+                                                                class="edit">
+                                                        </button>
+                                                    </form>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                            <% } else { %>
+
+                                                <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- <form action="">
+            <input type="text" name="" id="" placeholder="">
+        </form> -->
+            </div>
+
+    </body>
+    <%- include('partials/footer.ejs') %>

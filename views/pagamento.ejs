@@ -1,0 +1,280 @@
+<%- include('partials/header.ejs') %>
+
+    <body>
+        <%- include('partials/navbar.ejs') %>
+            <div class="container">
+
+                <div class="card">
+                    <form action="/pedido/pagamentoconfirmado" method="POST">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h3 class="title">Pagamento</h3>
+                            </div>
+                            <div class="col-sm">
+                                <!-- <a href="/pedido/novopedido"> -->
+                                <button class="btn btn-success" id="addButton" type="submit"> Confirmar
+                                    pagamento</button>
+                                <!-- </a> -->
+                            </div>
+                        </div>
+
+                        <div class="card-body" id="bodyPedido">
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="10%">Código</th>
+                                        <th width="10%">Data</th>
+                                        <th width="25%">Cliente</th>
+                                        <th width="10%">Mesa</th>
+                                        <th width="10%">Valor total</th>
+
+                                        <!-- <th width="10%">Custo</th>
+                                    <th width="10%">Preço</th>
+                                    <th width="15%">Ações</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>
+                                            <%= pedido.id_pedido %>
+                                        </td>
+                                        <td>
+                                            <%= pedido.data_pedido %>
+                                        </td>
+
+                                        <td>
+                                            <%= pedido.pessoa.nome_pessoa %>
+                                        </td>
+                                        <td>
+                                            <%= pedido.mesa_pedido %>
+                                        </td>
+                                        <td id="valorTotaltd">
+                                            <%= pedido.valor_total %>
+                                        </td>
+
+
+
+                                </tbody>
+                            </table>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="hidden" value="<%= pedido.valor_total %>" id="valorTotalPedido"
+                                        name="valorTotalPedido">
+                                    <input type="hidden" value="<%= pedido.id_pedido %>" id="idPedido" name="idPedido">
+                                    <label for="numeroPessoas">Quantidade de pessoas que irão dividir a conta:</label>
+                                    <select class="form-control" name="numeroPessoas" id="numeroPessoas">
+                                        <option value="1" id="op1" name="op1">
+                                            1
+                                        </option>
+                                        <option value="2" id="op2" name="op2">
+                                            2
+                                        </option>
+                                        <option value="3" id="op3" name="op3">
+                                            3
+                                        </option>
+                                        <option value="4" id="op4" name="op4">
+                                            4
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <br><br>
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-3" style="border: 1px solid #ccc; padding-top: 15px;">
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputTotal1">Valor 1° pessoa:</label>
+                                            <input class="form-control" type="number" id="inputTotal1" step="0.01"
+                                                style="width: 50%;" name="inputTotal1" value="">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputDinheiro1">Dinheiro:</label>
+                                            <input class="form-control" type="number" id="inputDinheiro1" step="0.01"
+                                                style="width: 50%;" name="inputDinheiro1">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputDebito1">Cartão débito:</label>
+                                            <input class="form-control" type="number" id="inputDebito1" step="0.01"
+                                                name="inputDebito1" style="width: 50%;">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputCredito1">Cartão crédito:</label>
+                                            <input class="form-control" type="number" id="inputCredito1" step="0.01"
+                                                style="width: 50%;" name="inputCredito1">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputPix1">Pix:</label>
+                                            <input class="form-control" type="number" id="inputPix1" name="inputPix1"
+                                                step="0.01" style="width: 50%;">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3"
+                                        style="border: 1px solid #ccc; padding-top: 15px; display: none;" id="bloco2">
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputTotal2">Valor 2° pessoa:</label>
+                                            <input class="form-control" type="number" step="0.01" id="inputTotal2"
+                                                style="width: 50%;" name="inputTotal2" value="">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputDinheiro2">Dinheiro:</label>
+                                            <input class="form-control" type="number" id="inputDinheiro2" step="0.01"
+                                                style="width: 50%;" name="inputDinheiro2">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputDebito2">Cartão débito:</label>
+                                            <input class="form-control" type="number" id="inputDebito2" step="0.01"
+                                                name="inputDebito2" style="width: 50%;">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputCredito2">Cartão crédito:</label>
+                                            <input class="form-control" type="number" id="inputCredito2" step="0.01"
+                                                style="width: 50%;" name="inputCredito2">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputPix2">Pix:</label>
+                                            <input class="form-control" type="number" id="inputPix2" name="inputPix2"
+                                                step="0.01" style="width: 50%;">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3"
+                                        style="border: 1px solid #ccc; padding-top: 15px; display: none;" id="bloco3">
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputTotal3">Valor 3° pessoa:</label>
+                                            <input class="form-control" type="number" id="inputTotal3" step="0.01"
+                                                style="width: 50%;" name="inputTotal3" value="">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputDinheiro3">Dinheiro:</label>
+                                            <input class="form-control" type="number" id="inputDinheiro3" step="0.01"
+                                                style="width: 50%;" name="inputDinheiro3">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputDebito3">Cartão débito:</label>
+                                            <input class="form-control" type="number" id="inputDebito3" step="0.01"
+                                                name="inputDebito3" style="width: 50%;">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputCredito3">Cartão crédito:</label>
+                                            <input class="form-control" type="number" id="inputCredito3" step="0.01"
+                                                style="width: 50%;" name="inputCredito3">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputPix3">Pix:</label>
+                                            <input class="form-control" type="number" id="inputPix3" name="inputPix3"
+                                                step="0.01" style="width: 50%;">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3"
+                                        style="border: 1px solid #ccc; padding-top: 15px; display: none;" id="bloco4">
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputTotal4">Valor 4° pessoa:</label>
+                                            <input class="form-control" type="number" id="inputTotal4" step="0.01"
+                                                style="width: 50%;" name="inputTotal4" value="">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputDinheiro4">Dinheiro:</label>
+                                            <input class="form-control" type="number" id="inputDinheiro4" step="0.01"
+                                                style="width: 50%;" name="inputDinheiro4">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputDebito4">Cartão débito:</label>
+                                            <input class="form-control" type="number" id="inputDebito4" step="0.01"
+                                                name="inputDebito4" style="width: 50%;">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputCredito4">Cartão crédito:</label>
+                                            <input class="form-control" type="number" id="inputCredito4" step="0.01"
+                                                style="width: 50%;" name="inputCredito4">
+                                        </div>
+                                        <div class="form-group d-flex justify-content-between">
+                                            <label for="inputPix4">Pix:</label>
+                                            <input class="form-control" type="number" id="inputPix4" name="inputPix4"
+                                                step="0.01" style="width: 50%;">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                    </form>
+                </div>
+                <script>
+                    const select = document.getElementById('numeroPessoas');
+                    const bloco2 = document.getElementById('bloco2');
+                    const bloco3 = document.getElementById('bloco3');
+                    const bloco4 = document.getElementById('bloco4');
+                    const valorTotal = document.getElementById('valorTotaltd');
+                    const addButton = document.getElementById('addButton');
+                    const inputTotal1 = document.getElementById('inputTotal1');
+                    const inputDinheiro1 = document.getElementById('inputDinheiro1');
+                    const inputDebito1 = document.getElementById('inputDebito1');
+                    const inputCredito1 = document.getElementById('inputCredito1');
+                    const inputPix1 = document.getElementById('inputPix1');
+
+                    const inputTotal2 = document.getElementById('inputTotal2');
+                    const inputDinheiro2 = document.getElementById('inputDinheiro2');
+                    const inputDebito2 = document.getElementById('inputDebito2');
+                    const inputCredito2 = document.getElementById('inputCredito2');
+                    const inputPix2 = document.getElementById('inputPix2');
+
+                    const inputTotal3 = document.getElementById('inputTotal3');
+                    const inputDinheiro3 = document.getElementById('inputDinheiro3');
+                    const inputDebito3 = document.getElementById('inputDebito3');
+                    const inputCredito3 = document.getElementById('inputCredito3');
+                    const inputPix3 = document.getElementById('inputPix3');
+
+                    const inputTotal4 = document.getElementById('inputTotal4');
+                    const inputDinheiro4 = document.getElementById('inputDinheiro4');
+                    const inputDebito4 = document.getElementById('inputDebito4');
+                    const inputCredito4 = document.getElementById('inputCredito4');
+                    const inputPix4 = document.getElementById('inputPix4');
+
+                    inputTotal1.value = (Number(valorTotal.textContent)).toFixed(2)
+
+                    // addButton.addEventListener('click', () => {
+                    //     console.log('clicado')
+                    // })
+
+                    select.addEventListener('change', function () {
+                        if (select.value == '2') {
+                            inputTotal1.value = (Number(valorTotal.textContent) / 2).toFixed(2)
+                            inputTotal2.value = (Number(valorTotal.textContent) / 2).toFixed(2)
+                            bloco2.style.display = 'block'
+                            bloco3.style.display = 'none'
+                            bloco4.style.display = 'none'
+                        } else if (select.value == '3') {
+                            inputTotal1.value = (Number(valorTotal.textContent) / 3).toFixed(2)
+                            inputTotal2.value = (Number(valorTotal.textContent) / 3).toFixed(2)
+                            inputTotal3.value = (Number(valorTotal.textContent) / 3).toFixed(2)
+                            bloco2.style.display = 'block'
+                            bloco3.style.display = 'block'
+                            bloco4.style.display = 'none'
+
+                        } else if (select.value == '4') {
+                            inputTotal1.value = (Number(valorTotal.textContent) / 4).toFixed(2)
+                            inputTotal2.value = (Number(valorTotal.textContent) / 4).toFixed(2)
+                            inputTotal3.value = (Number(valorTotal.textContent) / 4).toFixed(2)
+                            inputTotal4.value = (Number(valorTotal.textContent) / 4).toFixed(2)
+                            bloco2.style.display = 'block'
+                            bloco3.style.display = 'block'
+                            bloco4.style.display = 'block'
+
+                        } else {
+                            bloco2.style.display = 'none'
+                            bloco3.style.display = 'none'
+                            bloco4.style.display = 'none'
+                            inputTotal1.value = (Number(valorTotal.textContent)).toFixed(2)
+                        }
+                    })
+                </script>
+
+    </body>
+    <%- include('partials/footer.ejs') %>

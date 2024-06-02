@@ -1,0 +1,99 @@
+<%- include('partials/header.ejs') %>
+
+    <body>
+        <%- include('partials/navbar.ejs') %>
+            <div class="container">
+                <form id="formId" method="POST" action="/produto/update/">
+
+                    <div class="card">
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <h3 class="title">Edição de produto</h3>
+                            </div>
+                            <div class="grid-item">
+                                <!-- <button" class="btn btn-success" id="cancelButton">Cancelar</button> -->
+                                <a href="/produto">
+                                    <button type="button" id="cancelButton" class="btn btn-success">Cancelar</button>
+                                </a>
+
+
+                                <button class="btn btn-success" id="addButton">Editar produto</button>
+                            </div>
+                        </div>
+                    </div>
+
+                
+
+                    <div class="card-body">
+                        <input type="hidden" name="idProduto" value="<%= produto.id_produto %>">
+                        <input type="hidden" name="idMarca" value="">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="nome">Nome:</label>
+                                <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome"
+                                    value="<%= produto.descricao %>">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="custo">Custo:</label>
+                                <input class="form-control" type="text" name="custo" id="custo" placeholder="Custo"
+                                    value="<%= produto.custo_produto %>">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="preco">Preço:</label>
+                                <input class="form-control" type="text" name="preco" id="preco" placeholder="Preço"
+                                    value="<%= produto.preco_produto %>">
+                            </div>
+
+                        </div>
+
+
+                        <br>
+                        <hr>
+                        <br>
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <label for="marca">Marca:</label>
+
+                                <select class="form-control" name="marca" id="marca">
+                                    <% marcas.forEach(marca=> { %>
+                                        <option value="<%= marca.id_marca %>" <% if (marca.id_marca==produto.id_marca) {
+                                            %>
+                                            selected
+                                            <% } %>>
+                                                <%= marca.nome_marca %>
+                                        </option>
+
+                                        <% }) %>
+                                </select>
+
+                            </div>
+                            <div class="col-md-5">
+                                <label for="novaMarca">Incluir nova marca:</label>
+                                <input class="form-control" type="text" name="novaMarca" id="novaMarca"
+                                    placeholder="Nova marca" value="">
+                            </div>
+                        </div>
+
+
+
+
+
+
+                </form>
+
+            </div>
+
+            </div>
+
+            </div>
+
+            <!-- <form action="">
+            <input type="text" name="" id="" placeholder="">
+        </form> -->
+            </div>
+            <script>
+            </script>
+
+    </body>
+    <%- include('partials/footer.ejs') %>

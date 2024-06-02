@@ -1,0 +1,210 @@
+<%- include('partials/header.ejs') %>
+
+    <body>
+        <%- include('partials/navbar.ejs') %>
+            <div class="container">
+                <form id="formId" method="POST" action="/pedido/new">
+
+                    <div class="card">
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <h3 class="title">Cadastro de pedido</h3>
+                            </div>
+                            <div class="grid-item">
+                                <!-- <button" class="btn btn-success" id="cancelButton">Cancelar</button> -->
+                                <a href="/pedido">
+                                    <button type="button" id="cancelButton" class="btn btn-success">Cancelar</button>
+                                </a>
+
+
+                                <button type="submit" class="btn btn-success" id="addButton">Cadastrar pedido</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="cliente">Cliente:</label>
+                                <!--   <input class="form-control" type="text" name="cliente" id="cliente"
+                                    placeholder="Cliente" value=""> -->
+                                <select class="form-control" name="cliente" id="cliente" style="display: block"
+                                    required>
+                                    <option value="">Selecione uma opção... </option>
+                                    <% clientes.forEach(cliente=> { %>
+                                        <option value="<%= cliente.id_pessoa %>">
+                                            <%= cliente.nome_pessoa %>
+                                        </option>
+                                        %>
+                                        <% }) %>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="atendente">Atendente:</label>
+                                <select class="form-control" name="atendente" id="atendente" style="display: block"
+                                    required>
+                                    <option value="">Selecione uma opção... </option>
+                                    <% empregados.forEach(empregado=> { %>
+                                        <option value="<%= empregado.id_pessoa %>">
+                                            <%= empregado.nome_pessoa %>
+                                        </option>
+                                        %>
+                                        <% }) %>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="mesa">N° da mesa:</label>
+                                <input class="form-control" type="text" name="mesa" id="mesa" placeholder="N° da mesa"
+                                    value="" required>
+                            </div>
+
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label for="produto">Produto:</label>
+                                <!--   <input class="form-control" type="text" name="produto" id="produto"
+                                    placeholder="produto" value=""> -->
+                                <select class="form-control" name="produto" id="produto" style="display: block"
+                                    required>
+                                    <option value="">Selecione uma opção... </option>
+                                    <% produtos.forEach(produto=> { %>
+                                        <option value="<%= produto.id_produto %>">
+                                            <%= produto.descricao %>
+                                        </option>
+                                        %>
+                                        <% }) %>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="mesa">Quantidade:</label>
+                                <input class="form-control" type="text" name="quantidade" id="quantidade"
+                                    placeholder="Quantidade" value="" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="preco">Preço:</label>
+                                <input class="form-control" type="text" name="preco" id="preco" placeholder="Preço"
+                                    value="" required>
+                            </div>
+                            <!-- <div class="col-md-2">
+                                <label for="total">Valor total:</label>
+                                <input class="form-control" type="text" name="total" id="total" placeholder="Total"
+                                    value="">
+                            </div> -->
+                            <div class="col-md-1"
+                                style="border-width: 2px; border-color: #000; flex: auto; justify-content: center; align-items: center;">
+                                <div class="d-flex justify-content-start align-items-end" style="height: 100%;">
+                                    <button type="button" style="border-color: transparent;" id="addItem">
+                                        <img src="../img/adicionar.png" alt="add" class="edit">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <input type="hidden" name="produtos" id="produtos" value="">
+                        <br>
+                        <hr>
+                        <br>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="55%">Produto</th>
+                                    <th width="15%">Quantidade </th>
+                                    <th width="15%">Preço</th>
+                                    <th width="15%">Valor total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="corpoTabela">
+
+                            </tbody>
+                        </table>
+
+                        <!-- <ul id="listaItens"> -->
+                        <!-- A lista de itens será exibida aqui -->
+                        <!-- </ul> -->
+
+
+
+
+
+
+
+
+
+                    </div>
+                </form>
+            </div>
+
+
+
+
+            <!-- <form action="">
+            <input type="text" name="" id="" placeholder="">
+        </form> -->
+            </div>
+            <script>
+
+                var listaProdutos = []
+                const botaoAdicionar = document.getElementById("addItem");
+                const inputProduto = document.getElementById("produto");
+                const inputQuantidade = document.getElementById("quantidade");
+                const inputPreco = document.getElementById("preco");
+                // const inputValorTotal = document.getElementById("total");
+                const listaItens = document.getElementById("corpoTabela");
+                const idForm = document.getElementById("formId");
+
+
+                var cont = 0
+                var produtosSelecionados = [];
+                botaoAdicionar.addEventListener("click", function () {
+                    cont++
+                    var selectedIndex = inputProduto.selectedIndex;
+
+                    // Obtenha o texto da opção selecionada
+                    var selectedOption = inputProduto.options[selectedIndex];
+                    var produto = selectedOption.text;
+                    var produtoLista = {
+                        id: inputProduto.value,
+                        nome: produto,
+                        preco: inputPreco.value,
+                        quantidade: inputQuantidade.value
+                    };
+                    produtosSelecionados.push(produtoLista);
+                    var produtotd = document.createElement("td");
+                    var quantidadetd = document.createElement("td");
+                    var precotd = document.createElement("td");
+                    var valorTotaltd = document.createElement("td");
+
+                    // Cria um novo elemento de lista (<li>) e adiciona o texto do novo item
+                    const novaLinha = document.createElement("tr");
+                    novaLinha.id = "tr" + cont;
+                    produtotd.textContent = produto
+                    quantidadetd.textContent = inputQuantidade.value
+                    precotd.textContent = inputPreco.value
+                    valorTotaltd.textContent = (Number(inputQuantidade.value) * Number(inputPreco.value)).toFixed(2)
+
+                    // Adiciona o novo item à lista
+                    novaLinha.appendChild(produtotd);
+                    novaLinha.appendChild(quantidadetd);
+                    novaLinha.appendChild(precotd);
+                    novaLinha.appendChild(valorTotaltd);
+
+                    listaItens.appendChild(novaLinha)
+
+                });
+                idForm.addEventListener('submit', function () {
+                    var produtosInput = document.getElementById('produtos');
+                    produtosInput.value = JSON.stringify(produtosSelecionados);
+                });
+
+            </script>
+
+    </body>
+    <%- include('partials/footer.ejs') %>

@@ -1,0 +1,116 @@
+body {
+    background-color: #eee;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    /* Duas colunas com largura automática */
+    gap: 10px;
+    /* Espaço entre os itens */
+}
+
+.grid-item {
+    display: flex;
+    align-items: center;
+    /* Alinha verticalmente ao centro */
+}
+
+button {
+    margin-left: 10px;
+    /* Espaço entre os botões */
+}
+
+#addButton {
+    width: 200px;
+    margin-top: 10px;
+    margin-left: 50px;
+    /* margin-left: 300px; */
+}
+
+#tituloTela {
+    width: 60%;
+    border-width: 2px;
+    border-color: #198754;
+}
+
+#bodyPedido {
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    text-align: center;
+}
+
+
+#cancelButton {
+    width: 200px;
+    margin-top: 10px;
+    margin-left: 250px;
+    border-color: #198754;
+    border-width: 1px;
+    background-color: white;
+    color: #198754;
+    font-weight: 500;
+}
+
+#card {
+    padding-top: 10px;
+}
+
+.title {
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+.edit {
+    width: 40px;
+    height: 40px;
+}
+
+.bloco1 {
+    justify-content: space-evenly;
+ } 
+
+ /* h4 {
+    border-bottom: 1px solid red;
+ } */
+
+ nav {
+    background-color: #1C1C29;
+    
+ }
+
+ #textNav {
+    color: #ED4565;
+ }
+
+ .containerLogin {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+
+  } 
+  
+  .conteudo {
+    height: 500px;
+    background-color: #eee;
+    width: 70%;
+    flex-direction: row;
+    display: flex;
+    border: 10px solid #fff;
+
+
+
+  }
+
+
+
+  .divImgLogo{
+    width: 50%; /* Defina a largura da div como desejado */
+    height: 100%; /* Defina a altura da div como desejado */
+    background-image: url('/img/logo2.png'); /* Substitua pelo caminho para sua imagem */
+    background-size: cover; /* A imagem será dimensionada para cobrir toda a div */
+    background-position: center; /* Centraliza a imagem na div */
+    border-radius: 10px;
+  }

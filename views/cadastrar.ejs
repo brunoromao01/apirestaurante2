@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body style="background-color: #000;">
+    <div class="containerLogin">
+
+        <div class="conteudo" style="border-radius: 20px;">
+
+            <div class="divImgLogo"></div>
+
+
+            <div class="col-md-6" style="display: flex; flex-direction: column; justify-content: center; ">
+                <form id="formId" method="POST" action="/novocadastro">
+                    <label for="login">Login:</label>
+                    <input type="text" class="form-control" name="login" id="login" placeholder="Login">
+                    <br>
+                    <label for="senha">Senha:</label>
+                    <input type="text" class="form-control" name="senha" id="senha" placeholder="Senha">
+
+                    <br>
+                    <label for="senha2">Confirme a senha:</label>
+                    <input type="text" class="form-control" name="senha2" id="senha2" placeholder="Confirme a senha">
+                    <p id="erro" style="display: none; color: red;">*Senhas divergentes</p>
+                    <br> <br>
+                    <input type="submit" class="btn btn-success" value="Cadastrar" id="buttonLogar"
+                        style="width: 100%; background-color: #1C1C29;">
+                        <br>   <br>
+                    <a href="/login" style="width: 100%;">
+                        <input type="button" class="btn btn-success" value="Voltar"
+                            style="width: 100%; background-color: #eee; color: #1C1C29; border-color: #1C1C29;">
+                    </a>
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+
+
+
+    </div>
+    </div>
+    <script>
+        const inputLogin = document.getElementById("login");
+        const inputSenha = document.getElementById("senha");
+        const inputSenha2 = document.getElementById("senha2");
+        const msgErro = document.getElementById("erro");
+        const buttonLogar = document.getElementById("buttonLogar");
+        const form = document.getElementById("formId");
+
+        buttonLogar.addEventListener("click", function () {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                if (inputSenha.value != inputSenha2.value || inputSenha2.value == '' || inputSenha.value == "") {
+                    msgErro.style.display = 'block'
+                } else {
+                    this.submit();
+                }
+            })
+        })
+
+
+    </script>
+
+</body>
+
+<%- include('partials/footer.ejs') %>

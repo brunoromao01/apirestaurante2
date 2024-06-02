@@ -1,0 +1,146 @@
+<%- include('partials/header.ejs') %>
+
+    <body>
+        <%- include('partials/navbar.ejs') %>
+            <div class="container">
+
+                <div class="card">
+                    <form action="/pedido/pagamentoconfirmado" method="POST">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h3 class="title">Relatório </h3>
+                            </div>
+                            <div class="col-sm">
+                                <!-- <a href="/pedido/novopedido"> -->
+                                <a href="#" onclick="window.print();">
+                                <button class="btn btn-success" id="addButton" type="submit"> Imprimir</button> </a>
+                                <!-- </a> -->
+                            </div>
+                        </div>
+                        <hr>
+
+
+                        <div class="card-body" id="bodyPedido">
+
+                            <table class="table table-bordered">
+                                <h4>Pedido N° <%= pedido.id_pedido %></h4>
+                                <thead>
+                                    <tr>
+                                      
+                                        <th width="10%">Data</th>
+                                        <th width="35%">Cliente</th>
+                                        <th width="10%">Mesa</th>
+                                        <th width="10%">Valor total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <!-- <td>
+                                            <%= pedido.id_pedido %>
+                                        </td> -->
+                                        <td>
+                                            <%= pedido.data_pedido %>
+                                        </td>
+
+                                        <td>
+                                            <%= pedido.pessoa.nome_pessoa %>
+                                        </td>
+                                        <td>
+                                            <%= pedido.mesa_pedido %>
+                                        </td>
+                                        <td id="valorTotaltd">
+                                            <%= pedido.valor_total %>
+                                        </td>
+                                </tbody>
+                            </table>
+                            <hr>
+                            <br>
+                            <br>
+
+
+
+                            <table class="table table-bordered">
+                                <h4>Produtos:</h4>
+                                <thead>
+                                    <tr>
+                                        <th width="55%">Produto</th>
+                                        <th width="15%">Quantidade </th>
+                                        <th width="15%">Preço</th>
+                                        <th width="15%">Valor total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="corpoTabela">
+                                    <% produtos.forEach(produto=> { %>
+
+                                        <tr>
+                                            <td>
+                                                <%= produto.codigo %> - <%= produto.descricao%>
+                                            </td>
+                                            <td>
+                                                <%= produto.quantidade%>
+                                            </td>
+                                            <td>
+                                                <%= produto.valor %>
+                                            </td>
+                                            <td>
+                                                <%= (produto.valor * produto.quantidade).toFixed(2) %>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+
+                                </tbody>
+                            </table>
+
+                            <hr>
+                            <br>
+                            <br>
+                            <table class="table table-bordered">
+                            <h4>Pagamentos:</h4>
+                                <thead>
+                                    <tr>
+                                        <th width="16%">N° pessoa</th>
+                                        <th width="16%">Dinheiro </th>
+                                        <th width="16%">Débito</th>
+                                        <th width="16%">Crédito</th>
+                                        <th width="16%">Pix</th>
+                                        <th width="20%">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="corpoTabela">
+                                    <% pagamentos.forEach(pagamento => { %>
+
+                                        <tr>
+                                            <td>
+                                                <%= pagamento.numero_pessoa %>
+                                            </td>
+                                            <td>
+                                                <%= pagamento.dinheiro > 0 ? pagamento.dinheiro : 0 %>
+                                            </td>
+                                            <td>
+                                                <%= pagamento.debito > 0 ? pagamento.debito : 0 %>
+                                            </td>
+                                            <td>
+                                                <%= pagamento.credito > 0 ? pagamento.credito : 0 %>
+                                            </td>
+                                            <td>
+                                                <%= pagamento.pix > 0 ? pagamento.pix : 0 %>
+                                            </td>
+                                            <td>
+                                                <%= (Number(pagamento.dinheiro) + Number(pagamento.debito) + Number(pagamento.credito) + Number(pagamento.pix)).toFixed(2) %>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+
+                                </tbody>
+                            </table>
+
+
+
+                        </div>
+                    </form>
+                </div>
+                <script>
+                </script>
+
+    </body>
+    <%- include('partials/footer.ejs') %>

@@ -1,0 +1,109 @@
+<%- include('partials/header.ejs') %>
+
+    <body>
+        <%- include('partials/navbar.ejs') %>
+            <div class="container">
+
+                <div class="card">
+                    <div class="row">
+                        <div class="col-sm">
+
+                            <h3 class="title">Pessoas</h3>
+
+                        </div>
+                        <div class="col-sm">
+
+                            <a href="/pessoa/new">
+                                <button class="btn btn-success" id="addButton"> + Incluir pessoa</button>
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="10%">Código</th>
+                                    <th width="30%">Nome </th>
+                                    <th width="15%">Cpf</th>
+                                    <th width="15%">Telefone</th>
+                                    <th width="15%">Vínculo</th>
+                                    <th width="15%">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (pessoas.length> 0) { %>
+                                    <% pessoas.forEach(pessoa=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= pessoa.id_pessoa %>
+                                            </td>
+
+                                            <td>
+                                                <%= pessoa.nome_pessoa %>
+                                            </td>
+                                            <td>
+                                                <%= pessoa.cpf_pessoa %>
+                                            </td>
+                                            <td>
+                                                <%= pessoa.celular_pessoa %>
+                                            </td>
+                                            <td>
+                                                <input type="radio"
+                                                    id="opcao<%= pessoa.id_pessoa %><%= pessoa.cpf_pessoa %>" disabled
+                                                    name="opcao<%= pessoa.id_pessoa %><%= pessoa.cpf_pessoa %>"
+                                                    value="opcao<%= pessoa.id_pessoa %><%= pessoa.cpf_pessoa %>" <% if
+                                                    (pessoa.isCustomer==1) { %>
+                                                checked
+                                                <% } %>>
+                                                    <label
+                                                        for="opcao<%= pessoa.id_pessoa %><%= pessoa.cpf_pessoa %>">Cliente</label><br>
+
+                                                    <input type="radio"
+                                                        id="opcao<%= pessoa.id_pessoa %><%= pessoa.nome_pessoa %>"
+                                                        name="opcao<%= pessoa.id_pessoa %><%= pessoa.nome_pessoa %>"
+                                                        disabled
+                                                        value="opcao<%= pessoa.id_pessoa %><%= pessoa.nome_pessoa %>" <%
+                                                        if (pessoa.isEmployee==1) { %>
+                                                    checked
+                                                    <% } %>>
+                                                        <label
+                                                            for="opcao<%= pessoa.id_pessoa %><%= pessoa.nome_pessoa %>">Funcionário</label>
+                                            </td>
+                                            <td>
+                                                <div class="row" style="justify-content: center; ">
+
+                                                    <a href="/pessoa/edit/<%= pessoa.id_pessoa %>">
+                                                        <img src="../img/editar.png" alt="editar" class="edit">
+                                                    </a>
+                                                    <form method="POST" action="/pessoa/delete/">
+                                                        <input type="hidden" name="id" value="<%= pessoa.id_pessoa %>">
+                                                        <button style="border: none; background-color: transparent;">
+                                                            <img src="../img/botao-apagar.png" alt="editar" class="edit">
+                                                        </button>
+                                                    </form>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                            <% } else { %>
+
+                                                <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- <form action="">
+            <input type="text" name="" id="" placeholder="">
+        </form> -->
+            </div>
+
+    </body>
+    <%- include('partials/footer.ejs') %>

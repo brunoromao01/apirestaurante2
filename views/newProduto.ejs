@@ -1,0 +1,106 @@
+<%- include('partials/header.ejs') %>
+
+    <body>
+        <%- include('partials/navbar.ejs') %>
+            <div class="container">
+                <form id="formId" method="POST" action="/produto/create/">
+
+                    <div class="card">
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <h3 class="title">Cadastro de produto</h3>
+                            </div>
+                            <div class="grid-item">
+                                <!-- <button" class="btn btn-success" id="cancelButton">Cancelar</button> -->
+                                <a href="/produto">
+                                    <button type="button" id="cancelButton" class="btn btn-success">Cancelar</button>
+                                </a>
+
+
+                                <button class="btn btn-success" id="addButton">Cadastrar produto</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="card-body">
+                        <input type="hidden" name="idProduto" value="">
+                        <input type="hidden" name="idMarca" value="">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="nome">Nome:</label>
+                                <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome"
+                                    value="">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="custo">Custo:</label>
+                                <input class="form-control" type="text" name="custo" id="custo" placeholder="Custo"
+                                    value="">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="preco">Preço:</label>
+                                <input class="form-control" type="text" name="preco" id="preco" placeholder="Preço"
+                                    value="">
+                            </div>
+
+                        </div>
+
+
+                        <br>
+                        <hr>
+                        <br>
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label for="marca">Marca:</label>
+
+                                <select class="form-control" name="marca" id="marca">
+                                    <% marcas.forEach(marca=> { %>
+                                        <option value="<%= marca.id_marca %>" <% if (marca.id_marca==117) { %>
+                                            selected
+                                            <% } %>>
+                                                <%= marca.nome_marca %>
+                                        </option>
+
+                                        <% }) %>
+                                </select>
+
+                            </div>
+                            <!-- <div class="col-md-7">
+                                <form action="/produto/novamarca" method="POST">
+                                    <label for="novaMarca">Incluir nova marca:</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+
+                                            <input class="form-control" type="text" name="novaMarca" id="novaMarca"
+                                                placeholder="Nova marca" value="">
+                                        </div>
+                                        <div class="col-md-6"> <button disabled class="btn btn-warning">+ Adicionar marca</button></div>
+                                    </div>
+                                </form>
+                            </div> -->
+                        </div>
+
+
+
+
+
+
+                </form>
+
+            </div>
+
+            </div>
+
+            </div>
+
+            <!-- <form action="">
+            <input type="text" name="" id="" placeholder="">
+        </form> -->
+            </div>
+            <script>
+            </script>
+
+    </body>
+    <%- include('partials/footer.ejs') %>

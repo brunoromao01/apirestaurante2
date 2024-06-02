@@ -1,0 +1,191 @@
+<%- include('partials/header.ejs') %>
+
+    <body>
+        <%- include('partials/navbar.ejs') %>
+            <div class="container">
+                <form id="formId" method="POST" action="/pessoa/create/">
+
+                    <div class="card">
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <h3 class="title">Cadastro de pessoa</h3>
+                            </div>
+                            <div class="grid-item">
+                                <!-- <button" class="btn btn-success" id="cancelButton">Cancelar</button> -->
+                                <a href="/pessoa">
+                                    <button type="button" id="cancelButton" class="btn btn-success">Cancelar</button>
+                                </a>
+
+
+                                <button class="btn btn-success" id="addButton">Cadastrar pessoa</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="card-body">
+                        <input type="hidden" name="idPessoa" value="">
+                        <input type="hidden" name="idEndereco" value="">
+                        <input type="hidden" name="idUf" value="">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="nome">Nome:</label>
+                                <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome"
+                                    value="">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="cpf">Cpf:</label>
+                                <input class="form-control" type="text" name="cpf" id="cpf" placeholder="Cpf" value="">
+                            </div>
+
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="email">Email:</label>
+                                <input class="form-control" type="text" name="email" id="email" placeholder="Email"
+                                    value="">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="telefone">Telefone:</label>
+                                <input class="form-control" type="text" name="telefone" id="telefone"
+                                    placeholder="Telefone" value="">
+                            </div>
+
+
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="cep">Cep:</label>
+                                <input class="form-control" type="text" name="cep" id="cep" placeholder="Cep" value="">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="logradouro">Logradouro:</label>
+                                <input class="form-control" type="text" name="logradouro" id="logradouro"
+                                    placeholder="Logradouro" value="">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="numero">N°:</label>
+                                <input class="form-control" type="text" name="numero" id="numero" placeholder="N°"
+                                    value="">
+                            </div>
+
+
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="cidade">Complemento:</label>
+                                <input class="form-control" type="text" name="complemento" id="complemento"
+                                    placeholder="Complemento" value="">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="cidade">Cidade:</label>
+                                <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Cidade"
+                                    value="">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="uf">UF:</label>
+
+                                <select class="form-control" name="uf" id="uf">
+                                    <% ufs.forEach(uf=> { %>
+                                        <option value="<%= uf.id_uf %>" <% if (uf.id_uf==16) { %>
+                                            selected
+                                            <% } %>>
+                                                <%= uf.sigla_uf %>
+                                        </option>
+
+                                        <% }) %>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="title">Vínculo</h4>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" checked type="checkbox" name="cliente" value=""
+                                            id="checkboxCliente">
+                                        <label class="form-check-label" for="checkboxCliente">
+                                            Cliente
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="funcionario" value=""
+                                            id="checkboxFuncionario">
+                                        <label class="form-check-label" for="checkboxFuncionario">
+                                            Funcionário
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="cargo" id="labelCargo" style="display: none">Cargo</label>
+                                    <!-- <input type="text" value="" id="cargo" style="display: none"> -->
+                                    <select class="form-control" name="cargo" id="cargo" style="display: none">
+                                        <option value="0">
+                                            <% cargos.forEach(cargo=> { %>
+                                        <option value="<%= cargo.id_cargo %>">
+                                            <%= cargo.nome_cargo %>
+                                        </option>
+                                        %>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                                <!-- <div class="col-md-6">
+                                    <label for="novoCargo" id="labelNovoCargo" style="display: none">Incluir novo
+                                        cargo</label>
+                                    <input class="form-control" type="text" id="novoCargo" style="display: none"
+                                        placeholder="Novo cargo">
+
+                                </div> -->
+                            </div>
+
+
+
+
+                </form>
+
+            </div>
+
+            </div>
+
+            </div>
+
+        
+            </div>
+            <script>
+
+                const checkbox = document.getElementById('checkboxFuncionario');
+                const inputCargo = document.getElementById('cargo');
+                const inputNovoCargo = document.getElementById('novoCargo');
+                const labelNovoCargo = document.getElementById('labelNovoCargo');
+                const labelCargo = document.getElementById('labelCargo');
+                checkbox.addEventListener('change', function () {
+                    if (checkbox.checked) {
+                        inputCargo.style.display = 'block'; // Mostra o input
+                        inputNovoCargo.style.display = 'block'; // Mostra o input
+                        labelNovoCargo.style.display = 'block'; // Mostra o input
+                        labelCargo.style.display = 'block'; // Mostra o input
+                    } else {
+                        inputCargo.style.display = 'none'; // Oculta o input
+                        inputNovoCargo.style.display = 'none'; // Oculta o input
+                        labelNovoCargo.style.display = 'none'; // Oculta o input
+                        labelCargo.style.display = 'none'; // Oculta o input
+                    }
+                });
+         
+            </script>
+
+    </body>
+    <%- include('partials/footer.ejs') %>
